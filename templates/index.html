@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finora | Personal Finance Advisor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- Subtle background decoration -->
+    <div class="background">
+        <div class="background-shape shape-one"></div>
+        <div class="background-shape shape-two"></div>
+    </div>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                F
+            </div>
+
+            <div class="brand-text">
+                <h2>Finora</h2>
+                <span>Personal Finance</span>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-label">
+            MENU
+        </div>
+
+
+        <nav class="navigation">
+
+            <button
+                class="nav-item active"
+                onclick="showSection('dashboard', this)"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Overview</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('transactions', this)"
+            >
+                <span class="nav-icon">↕</span>
+                <span>Transactions</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('advisor', this)"
+            >
+                <span class="nav-icon">✦</span>
+                <span>Insights</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('goals', this)"
+            >
+                <span class="nav-icon">◎</span>
+                <span>Savings Goal</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="status-card">
+
+                <div class="status-indicator"></div>
+
+                <div>
+                    <strong>Advisor active</strong>
+                    <span>Your finances are up to date</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
+        <section
+            id="dashboard"
+            class="section active"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        FINANCIAL OVERVIEW
+                    </span>
+
+                    <h1>Your money at a glance</h1>
+
+                    <p>
+                        Track your income, spending and savings
+                        in one place.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="date-badge"
+                    id="currentDate"
+                ></div>
+
+            </header>
+
+
+
+            <!-- =========================
+                 SUMMARY
+            ========================== -->
+
+            <div class="summary-grid">
+
+
+                <div class="summary-card">
+
+                    <div class="summary-top">
+
+                        <span>Monthly Income</span>
+
+                        <div class="summary-icon income-icon">
+                            ₹
+                        </div>
+
+                    </div>
+
+                    <h2 id="income">
+                        ₹0
+                    </h2>
+
+                    <p class="summary-note">
+                        Total income recorded
+                    </p>
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+                    <div class="summary-top">
+
+                        <span>Monthly Expenses</span>
+
+                        <div class="summary-icon expense-icon">
+                            ↘
+                        </div>
+
+                    </div>
+
+                    <h2 id="expenses">
+                        ₹0
+                    </h2>
+
+                    <p class="summary-note">
+                        Total spending recorded
+                    </p>
+
+                </div>
+
+
+
+                <div class="summary-card highlight-card">
+
+                    <div class="summary-top">
+
+                        <span>Net Savings</span>
+
+                        <div class="summary-icon savings-icon">
+                            +
+                        </div>
+
+                    </div>
+
+                    <h2 id="savings">
+                        ₹0
+                    </h2>
+
+                    <p class="summary-note">
+                        Income after expenses
+                    </p>
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+                    <div class="summary-top">
+
+                        <span>Savings Rate</span>
+
+                        <div class="summary-icon rate-icon">
+                            %
+                        </div>
+
+                    </div>
+
+                    <h2 id="rate">
+                        0%
+                    </h2>
+
+                    <p class="summary-note">
+                        Percentage of income saved
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 DASHBOARD CONTENT
+            ========================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- ADD TRANSACTION -->
+
+                <div class="panel transaction-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                QUICK ACTION
+                            </span>
+
+                            <h2>Add a transaction</h2>
+
+                        </div>
+
+                        <span class="panel-number">
+                            01
+                        </span>
+
+                    </div>
+
+
+                    <form id="transactionForm">
+
+
+                        <div class="form-row">
+
+                            <div class="input-group">
+
+                                <label>
+                                    Type
+                                </label>
+
+                                <select id="type">
+
+                                    <option value="income">
+                                        Income
+                                    </option>
+
+                                    <option value="expense">
+                                        Expense
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Amount
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="amount"
+                                    placeholder="₹ 0"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-row">
+
+                            <div class="input-group">
+
+                                <label>
+                                    Category
+                                </label>
+
+                                <select id="category">
+
+                                    <option value="Salary">
+                                        Salary
+                                    </option>
+
+                                    <option value="Food">
+                                        Food
+                                    </option>
+
+                                    <option value="Rent">
+                                        Rent
+                                    </option>
+
+                                    <option value="Transport">
+                                        Transport
+                                    </option>
+
+                                    <option value="Entertainment">
+                                        Entertainment
+                                    </option>
+
+                                    <option value="Shopping">
+                                        Shopping
+                                    </option>
+
+                                    <option value="Education">
+                                        Education
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Description
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="description"
+                                    placeholder="e.g. Monthly rent"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <button
+                            class="primary-btn"
+                            type="submit"
+                        >
+                            Add transaction
+                            <span>→</span>
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- SPENDING -->
+
+                <div class="panel spending-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                SPENDING
+                            </span>
+
+                            <h2>Where your money goes</h2>
+
+                        </div>
+
+                        <span class="panel-number">
+                            02
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        id="categoryBars"
+                        class="category-bars"
+                    >
+
+                        <p class="empty-message">
+                            Add expenses to see your
+                            spending breakdown.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 RECENT TRANSACTIONS
+            ========================== -->
+
+            <div class="panel recent-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            ACTIVITY
+                        </span>
+
+                        <h2>Recent transactions</h2>
+
+                    </div>
+
+
+                    <button
+                        class="text-btn"
+                        onclick="showSection('transactions')"
+                    >
+                        View all →
+                    </button>
+
+                </div>
+
+
+                <div id="recentTransactions">
+
+                    <p class="empty-message">
+                        No transactions yet.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             TRANSACTIONS
+        ========================== -->
+
+        <section
+            id="transactions"
+            class="section"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        ACTIVITY
+                    </span>
+
+                    <h1>Transactions</h1>
+
+                    <p>
+                        A complete record of your financial activity.
+                    </p>
+
+                </div>
+
+            </header>
+
+
+            <div class="panel large-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            TRANSACTION HISTORY
+                        </span>
+
+                        <h2>All transactions</h2>
+
+                    </div>
+
+                </div>
+
+
+                <div id="allTransactions">
+
+                    <p class="empty-message">
+                        No transactions available.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             AI ADVISOR
+        ========================== -->
+
+        <section
+            id="advisor"
+            class="section"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        FINORA INSIGHTS
+                    </span>
+
+                    <h1>Understand your spending</h1>
+
+                    <p>
+                        Get practical suggestions based on
+                        your recorded financial activity.
+                    </p>
+
+                </div>
+
+            </header>
+
+
+
+            <div class="advisor-layout">
+
+
+                <div class="advisor-intro">
+
+                    <div class="advisor-mark">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <span class="section-label">
+                            PERSONALIZED ANALYSIS
+                        </span>
+
+                        <h2>
+                            Your finances,
+                            explained simply.
+                        </h2>
+
+                        <p>
+                            Finora reviews your income,
+                            expenses and savings to highlight
+                            useful patterns and practical
+                            ways to improve your budget.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="advisor-action">
+
+                    <p>
+                        Ready to review this month's activity?
+                    </p>
+
+                    <button
+                        class="primary-btn"
+                        onclick="getAdvice()"
+                    >
+                        Generate insights
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                id="aiResult"
+                class="panel ai-result hidden"
+            ></div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SAVINGS GOAL
+        ========================== -->
+
+        <section
+            id="goals"
+            class="section"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        SAVINGS PLAN
+                    </span>
+
+                    <h1>Work toward a goal</h1>
+
+                    <p>
+                        Give your savings a clear purpose.
+                    </p>
+
+                </div>
+
+            </header>
+
+
+
+            <div class="goal-layout">
+
+
+                <!-- CURRENT GOAL -->
+
+                <div class="panel goal-progress-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                CURRENT GOAL
+                            </span>
+
+                            <h2 id="goalName">
+                                My Savings Goal
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="goal-progress">
+
+                        <div class="goal-circle">
+
+                            <div>
+
+                                <strong id="goalPercent">
+                                    0%
+                                </strong>
+
+                                <span>
+                                    saved
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="goal-amount">
+
+                            ₹<span id="goalSaved">
+                                0
+                            </span>
+
+                            <span class="goal-divider">
+                                /
+                            </span>
+
+                            ₹<span id="goalTarget">
+                                100000
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CREATE GOAL -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                PLAN AHEAD
+                            </span>
+
+                            <h2>Create a savings goal</h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Goal name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="goalInputName"
+                            placeholder="e.g. New Laptop"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Target amount
+                        </label>
+
+                        <input
+                            type="number"
+                            id="goalInputAmount"
+                            placeholder="₹ 80,000"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="primary-btn"
+                        onclick="saveGoal()"
+                    >
+                        Save goal
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+</html>
