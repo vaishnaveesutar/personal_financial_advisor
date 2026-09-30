@@ -646,3 +646,33 @@ if (storedGoal) {
 
     }
 }
+async function resetDemoData() {
+    const confirmed = confirm(
+        "Are you sure you want to delete all transaction data?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/reset", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Demo data has been reset.");
+
+            await loadData();
+            updateDashboard();
+        } else {
+            alert("Unable to reset the data.");
+        }
+
+    } catch (error) {
+        console.error("Reset error:", error);
+        alert("Something went wrong while resetting the data.");
+    }
+}

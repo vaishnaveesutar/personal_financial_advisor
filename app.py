@@ -98,7 +98,24 @@ def get_entries():
         })
 
     return jsonify(data)
+@app.route("/api/reset", methods=["POST"])
+def reset_data():
+    try:
+        Transaction.query.delete()
+        db.session.commit()
 
+        return jsonify({
+            "success": True,
+            "message": "All transaction data has been reset."
+        })
+
+    except Exception as e:
+        db.session.rollback()
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
 
 # ==========================================
 # ADD TRANSACTION

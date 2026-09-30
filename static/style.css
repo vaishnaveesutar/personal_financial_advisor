@@ -1366,3 +1366,21 @@ textarea::placeholder {
 .ai-heading {
     color: #178f82;
 }
+.reset-demo-btn {
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #6b7280;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+}
+
+.reset-demo-btn:hover {
+    background: #fff5f5;
+    border-color: #f1b5b5;
+    color: #c24141;
+}
