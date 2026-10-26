@@ -100,6 +100,8 @@ personal_financial_advisor/
 └── static/
     ├── style.css
     └── script.js
+```
 
-##Documentation for my project:
-https://docs.google.com/document/d/1IsyH0tDmzS3vT6rmEY7nNsvDw9StZOiG/edit?usp=drivesdk&ouid=105223747520678891595&rtpof=true&sd=true
+## Documentation for My Project
+
+[📄 View Project Documentation](https://docs.google.com/document/d/1IsyH0tDmzS3vT6rmEY7nNsvDw9StZOiG/edit?usp=drivesdk&ouid=105223747520678891595&rtpof=true&sd=true)
